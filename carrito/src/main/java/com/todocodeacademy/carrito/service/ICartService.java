@@ -5,6 +5,8 @@ import com.todocodeacademy.carrito.model.Cart;
 
 public interface ICartService {
 
+    public Cart getCart();
+
     public Cart createCart();
 
     public Cart addProductToCart(ProductDTO product);

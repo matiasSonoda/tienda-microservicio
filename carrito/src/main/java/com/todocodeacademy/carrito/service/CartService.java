@@ -13,6 +13,11 @@ public class CartService implements  ICartService{
     private CartRepository cartRepository;
 
     @Override
+    public Cart getCart() {
+        return cartRepository.findById(1L).orElseThrow();
+    }
+
+    @Override
     public Cart createCart() {
         Cart cart = new Cart();
         return cartRepository.save(cart);
