@@ -1,12 +1,12 @@
 package com.todocodeacademy.productos.controller;
 
 import com.todocodeacademy.productos.model.Product;
+import com.todocodeacademy.productos.model.dto.ProductDTO;
 import com.todocodeacademy.productos.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")
@@ -19,6 +19,10 @@ public class ProductController {
     public Product getProduct(@PathVariable Long id){
         return productService.getProduct(id);
     }
-;
+
+    @PutMapping("/upodate-stock")
+    public String updateStock(@RequestBody List<ProductDTO> listProduct){
+        return productService.updateStock(listProduct);
+    }
 
 }

@@ -1,10 +1,9 @@
 package com.todocodeacademy.pagos.service;
 
-import com.todocodeacademy.pagos.dto.CartDTO;
-import org.springframework.web.bind.annotation.PostMapping;
+import com.todocodeacademy.pagos.dto.PaymentRequestDTO;
 
 public interface IPaymentService {
 
-    public String payOrder(CartDTO cartDTO);
+    public String payOrder(PaymentRequestDTO pay);
 
 }

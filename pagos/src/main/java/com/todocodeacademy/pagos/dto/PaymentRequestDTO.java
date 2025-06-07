@@ -8,11 +8,9 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDTO {
+public class PaymentRequestDTO {
 
-    private Long idProduct;
-    private String name;
-    private Double price;
-    private Integer quantity;
+    private Double pay;
+    //se puede agregar metodos de pago, mas info detallada
 
 }
