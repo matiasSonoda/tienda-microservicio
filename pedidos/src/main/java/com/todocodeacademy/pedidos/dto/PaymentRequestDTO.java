@@ -5,17 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartDTO {
+public class PaymentRequestDTO {
 
-        private Long idCarrito;
-        private List<ProductDTO> listProducts = new ArrayList<>();
-        private Double total;
+    private Double pay;
+    //se puede agregar metodos de pago, mas info detallada
 
 }

@@ -1,5 +1,6 @@
 package com.todocodeacademy.pedidos.repository;
 
+import com.todocodeacademy.pedidos.dto.CurrentProductDTO;
 import com.todocodeacademy.pedidos.dto.ProductDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +13,10 @@ import java.util.List;
 @FeignClient("product-service")
 public interface IProductAPI {
 
-    @GetMapping("/{id}")
-    public ProductDTO getProduct(@PathVariable(name = "id") Long id);
+    @GetMapping("/product/{id}")
+    public CurrentProductDTO getProduct(@PathVariable(name = "id") Long id);
 
-    @PutMapping("/upodate-stock")
+    @PutMapping("/product/update-stock")
     public String updateStock(@RequestBody List<ProductDTO> listProduct);
 
 }

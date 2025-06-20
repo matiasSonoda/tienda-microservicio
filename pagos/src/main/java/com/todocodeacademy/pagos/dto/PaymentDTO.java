@@ -5,12 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentRequestDTO {
+public class PaymentDTO {
 
-    private Double pay;
-    //se puede agregar metodos de pago, mas info detallada
+    private Long idPayment;
+    private LocalDateTime date;
+    private CartDTO cart;
 
 }

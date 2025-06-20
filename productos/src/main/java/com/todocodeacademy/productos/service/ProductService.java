@@ -4,9 +4,11 @@ import com.todocodeacademy.productos.model.Product;
 import com.todocodeacademy.productos.model.dto.ProductDTO;
 import com.todocodeacademy.productos.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProductService implements IProductService{
 
     @Autowired
@@ -15,6 +17,16 @@ public class ProductService implements IProductService{
     @Override
     public Product getProduct(Long id) {
         return productRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public Product createProduct(Product product) {
+        return null;
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+
     }
 
     @Override

@@ -19,17 +19,17 @@ public class OrderController {
 
     @PostMapping("/create-cart")
     public CartDTO createCart(){
-
+        return orderService.createCart();
     }
 
     @PostMapping("/add-producto-to-cart/{idProduct}")
     public CartDTO addProductToCart(@PathVariable Long idProduct){
-
+        return orderService.addProductToCart(idProduct);
     }
 
     @PostMapping("/pay-order")
-    public String payOrder(Double pay){
-
+    public Boolean payOrder(Double pay){
+        return orderService.payProducts(pay);
     }
 
 }

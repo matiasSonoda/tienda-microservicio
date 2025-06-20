@@ -9,6 +9,6 @@ public interface IOrderService {
 
     public CartDTO addProductToCart(Long idProduct);
 
-    public String payProducts(Double pay);
+    public Boolean payProducts(Double pay);
 
 }

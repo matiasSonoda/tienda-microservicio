@@ -1,9 +1,13 @@
 package com.todocodeacademy.pagos.service;
 
-import com.todocodeacademy.pagos.dto.PaymentRequestDTO;
+import com.todocodeacademy.pagos.dto.CartDTO;
+import com.todocodeacademy.pagos.dto.PaymentDTO;
+import com.todocodeacademy.pagos.model.Payment;
 
 public interface IPaymentService {
 
-    public String payOrder(PaymentRequestDTO pay);
+    public Payment savePayment(CartDTO dto);
+
+    public PaymentDTO getPayment(Long id);
 
 }

@@ -13,9 +13,9 @@ public class CartController {
     @Autowired
     private ICartService cartService;
 
-    @GetMapping("/get-cart")
-    public Cart getCart(){
-        return cartService.getCart();
+    @GetMapping("/get-cart/{id}")
+    public Cart getCart(@PathVariable Long id){
+        return cartService.getCart(id);
     }
 
     @PostMapping("/create-cart")
@@ -23,9 +23,16 @@ public class CartController {
         return cartService.createCart();
     }
 
-    @PostMapping("/add-product-to-cart")
-    public Cart addProductToCart(@RequestBody ProductDTO product){
-        return cartService.addProductToCart(product);
+    @PostMapping("/add-product-to-cart/{id}")
+    public Cart addProductToCart(
+            @PathVariable Long id,
+            @RequestBody ProductDTO product){
+        return cartService.addProductToCart(id,product);
+    }
+
+    @PostMapping("/clear-cart/{id}")
+    public Cart clearCart(@PathVariable Long id){
+        return cartService.clearCart(id);
     }
 
 }

@@ -5,10 +5,11 @@ import com.todocodeacademy.carrito.model.Cart;
 
 public interface ICartService {
 
-    public Cart getCart();
+    public Cart getCart(Long id);
 
     public Cart createCart();
 
-    public Cart addProductToCart(ProductDTO product);
+    public Cart addProductToCart(Long id, ProductDTO product);
 
+    public Cart clearCart(Long id);
 }

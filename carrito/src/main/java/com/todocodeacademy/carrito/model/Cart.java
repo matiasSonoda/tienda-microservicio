@@ -1,7 +1,6 @@
 package com.todocodeacademy.carrito.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.todocodeacademy.carrito.dto.ProductDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +19,9 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCarrito;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
     @JsonManagedReference
-    private List<ProductDTO> listProducts = new ArrayList<>();
+    private List<CartItem> listProducts = new ArrayList<>();
+
+    private Double total;
 }

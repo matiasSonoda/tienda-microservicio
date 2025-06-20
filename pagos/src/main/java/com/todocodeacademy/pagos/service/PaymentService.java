@@ -1,44 +1,40 @@
 package com.todocodeacademy.pagos.service;
 
 import com.todocodeacademy.pagos.dto.CartDTO;
-import com.todocodeacademy.pagos.dto.PaymentRequestDTO;
-import com.todocodeacademy.pagos.dto.ProductDTO;
+import com.todocodeacademy.pagos.dto.PaymentDTO;
+import com.todocodeacademy.pagos.model.Payment;
 import com.todocodeacademy.pagos.repository.ICartAPI;
-import com.todocodeacademy.pagos.repository.IProductAPI;
+import com.todocodeacademy.pagos.repository.IPaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
+@Service
 public class PaymentService implements IPaymentService{
 
     @Autowired
     private ICartAPI cartAPI;
 
     @Autowired
-    private IProductAPI productAPI;
+    private IPaymentRepository paymentRepository;
 
     @Override
-    public String payOrder(PaymentRequestDTO pay) {
+    public Payment savePayment(CartDTO dto) {
+        Payment payment = new Payment();
+        payment.setDate(LocalDateTime.now());
+        payment.setIdCart(dto.getIdCart());
+        return paymentRepository.save(payment);
+    }
 
-        CartDTO cartDTO = cartAPI.getCart();
-
-        if (cartDTO.getListProduct().isEmpty()){
-            return "Carrito vacio";
-        }
-
-        Double total = cartDTO.getListProduct()
-                .stream()
-                .map(ProductDTO::getPrice)
-                .reduce(0.0, (subtotal, price) -> subtotal + price);
-
-        if(total > pay.getPay()){
-            return "Dinero insuficiente";
-        }
-
-        String response = productAPI.updateStock(cartDTO.getListProduct());
-
-        System.out.println(response);
-
-        Double change = total - pay.getPay();
-        return "El vuelto es: " + change;
-
+    @Override
+    public PaymentDTO getPayment(Long id) {
+        Payment payment = paymentRepository.findById(id).orElseThrow();
+        PaymentDTO response = new PaymentDTO();
+        response.setIdPayment(payment.getIdPayment());
+        response.setDate(payment.getDate());
+        CartDTO dto = cartAPI.getCart(payment.getIdCart());
+        response.setCart(dto);
+        return response;
     }
 }

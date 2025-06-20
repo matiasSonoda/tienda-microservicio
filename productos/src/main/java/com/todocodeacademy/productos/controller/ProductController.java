@@ -20,7 +20,7 @@ public class ProductController {
         return productService.getProduct(id);
     }
 
-    @PutMapping("/upodate-stock")
+    @PutMapping("/update-stock")
     public String updateStock(@RequestBody List<ProductDTO> listProduct){
         return productService.updateStock(listProduct);
     }
