@@ -25,4 +25,14 @@ public class ProductController {
         return productService.updateStock(listProduct);
     }
 
+    @PostMapping("")
+    public Product createProduct(@RequestBody Product product){
+        return productService.createProduct(product);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id){
+        productService.deleteProduct(id);
+    }
+
 }
