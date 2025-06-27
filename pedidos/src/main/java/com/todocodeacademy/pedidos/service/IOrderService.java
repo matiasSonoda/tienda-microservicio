@@ -1,7 +1,7 @@
 package com.todocodeacademy.pedidos.service;
 
 import com.todocodeacademy.pedidos.dto.CartDTO;
-import com.todocodeacademy.pedidos.dto.ProductDTO;
+import com.todocodeacademy.pedidos.dto.PaymentDTO;
 
 public interface IOrderService {
 
@@ -9,6 +9,8 @@ public interface IOrderService {
 
     public CartDTO addProductToCart(Long idProduct);
 
-    public Boolean payProducts(Double pay);
+    public PaymentDTO savePayment(Long idCart);
+
+    public PaymentDTO getPayment(Long id);
 
 }

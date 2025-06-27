@@ -16,12 +16,12 @@ public class PaymentController {
 
 
     @GetMapping("/{id}")
-    public PaymentDTO savePayment(@PathVariable Long id){
+    public PaymentDTO getPayment(@PathVariable Long id){
         return paymentService.getPayment(id);
     }
 
     @PostMapping("")
-    public Payment savePayment(@RequestBody CartDTO dto){
+    public PaymentDTO savePayment(@RequestBody CartDTO dto){
         return paymentService.savePayment(dto);
     }
 

@@ -6,7 +6,7 @@ import com.todocodeacademy.pagos.model.Payment;
 
 public interface IPaymentService {
 
-    public Payment savePayment(CartDTO dto);
+    public PaymentDTO savePayment(CartDTO dto);
 
     public PaymentDTO getPayment(Long id);
 

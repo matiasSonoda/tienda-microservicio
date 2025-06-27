@@ -3,11 +3,12 @@ package com.todocodeacademy.pedidos.service;
 
 import com.todocodeacademy.pedidos.dto.CartDTO;
 import com.todocodeacademy.pedidos.dto.CurrentProductDTO;
-import com.todocodeacademy.pedidos.dto.PaymentRequestDTO;
+import com.todocodeacademy.pedidos.dto.PaymentDTO;
 import com.todocodeacademy.pedidos.dto.ProductDTO;
 import com.todocodeacademy.pedidos.repository.ICartAPI;
 import com.todocodeacademy.pedidos.repository.IPaymentsAPI;
 import com.todocodeacademy.pedidos.repository.IProductAPI;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class OrderService implements  IOrderService{
     }
 
     @Override
+    @CircuitBreaker(name = "cart-service", fallbackMethod = "fallbackAddProductToCard")
     public CartDTO addProductToCart(Long idProduct) {
         CurrentProductDTO product = productAPI.getProduct(idProduct);
         ProductDTO request = new ProductDTO();
@@ -40,26 +42,21 @@ public class OrderService implements  IOrderService{
         return cartAPI.addProductToCart(request);
     }
 
-    @Override
-    public Boolean payProducts(Double pay) {
-        /*Se puede realizar una clase donde reciba un formulario
-        * donde pueda crear un objeto de tipo PaymentRequestDTO
-        * donde reciba el pago, tipo de pago, id, y demas informacion
-        * detallada del pago. En este caso solo recibire el monto y creare
-        * el objeto de la clase PaymentRequestDTO*/
-        PaymentRequestDTO payment = new PaymentRequestDTO();
-        payment.setPay(pay);
-        Boolean bool = paymentsAPI.payOrder(payment);
-        if(bool.booleanValue()){
-           CartDTO cart = cartAPI.getCart();
-           String response =productAPI.updateStock(cart.getListProducts());
-           System.out.println(response);
-           cartAPI.clearCart();
-           return bool.booleanValue();
-        }
-        else{
-            return bool.booleanValue();
-        }
+    public CartDTO fallbackAddProductToCard( Throwable throwable){
+        CartDTO response = new CartDTO();
+        response.setIdCarrito(9999L);
+        response.setTotal(null);
+        return response;
+    }
 
+    @Override
+    public PaymentDTO savePayment(Long idCart) {
+        CartDTO cart = cartAPI.getCart(idCart);
+        return paymentsAPI.savePayment(cart);
+    }
+
+    @Override
+    public PaymentDTO getPayment(Long id) {
+        return paymentsAPI.getPayment(id);
     }
 }

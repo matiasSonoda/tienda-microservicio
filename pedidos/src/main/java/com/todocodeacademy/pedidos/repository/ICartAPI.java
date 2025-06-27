@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name = "cart-service")
 public interface ICartAPI {
 
-    @GetMapping("/get-cart")
-    public CartDTO getCart();
+    @GetMapping("/get-cart/{id}")
+    public CartDTO getCart(@PathVariable(name = "id") Long id);
 
     @PostMapping("/cart/create-cart")
     public CartDTO createCart();

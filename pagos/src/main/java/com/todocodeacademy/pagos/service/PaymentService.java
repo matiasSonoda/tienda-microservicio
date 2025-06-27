@@ -20,11 +20,16 @@ public class PaymentService implements IPaymentService{
     private IPaymentRepository paymentRepository;
 
     @Override
-    public Payment savePayment(CartDTO dto) {
+    public PaymentDTO savePayment(CartDTO dto) {
         Payment payment = new Payment();
         payment.setDate(LocalDateTime.now());
         payment.setIdCart(dto.getIdCart());
-        return paymentRepository.save(payment);
+        Payment auxiliar = paymentRepository.save(payment);
+        PaymentDTO response = new PaymentDTO();
+        response.setIdPayment(auxiliar.getIdPayment());
+        response.setDate(auxiliar.getDate());
+        response.setCart(dto);
+        return response;
     }
 
     @Override

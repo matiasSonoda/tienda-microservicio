@@ -2,13 +2,10 @@ package com.todocodeacademy.pedidos.controller;
 
 
 import com.todocodeacademy.pedidos.dto.CartDTO;
-import com.todocodeacademy.pedidos.dto.ProductDTO;
+import com.todocodeacademy.pedidos.dto.PaymentDTO;
 import com.todocodeacademy.pedidos.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/order")
@@ -27,9 +24,13 @@ public class OrderController {
         return orderService.addProductToCart(idProduct);
     }
 
-    @PostMapping("/pay-order")
-    public Boolean payOrder(Double pay){
-        return orderService.payProducts(pay);
+    @PostMapping("/save-payment/{id}")
+    public PaymentDTO savePayment(@PathVariable Long id){
+        return orderService.savePayment(id);
+    }
+    @GetMapping("get-payment/{id}")
+    public PaymentDTO getPayment(@PathVariable Long id){
+        return orderService.getPayment(id);
     }
 
 }
